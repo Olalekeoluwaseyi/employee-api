@@ -1,5 +1,7 @@
 package com.oluwaseyi.employeeapi.service;
 
+import com.oluwaseyi.employeeapi.dto.request.CreateEmployeeRequest;
+import com.oluwaseyi.employeeapi.dto.response.EmployeeResponse;
 import com.oluwaseyi.employeeapi.exception.EmployeeNotFoundException;
 import com.oluwaseyi.employeeapi.model.Employee;
 import com.oluwaseyi.employeeapi.repository.EmployeeRepository;
@@ -39,9 +41,23 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 
     @Override
-    public Employee addEmployee(Employee employee){
+    public EmployeeResponse addEmployee(CreateEmployeeRequest request){
 
-        return employeeRepository.save(employee);
+        //Manual Object Mapping
+        Employee employee = new Employee();
+        employee.setName(request.getName());
+        employee.setDepartment(request.getDepartment());
+        employee.setSalary(request.getSalary());
+
+        Employee savedEmployee = employeeRepository.save(employee);
+        EmployeeResponse response = new EmployeeResponse();
+
+        response.setId(savedEmployee.getId());
+        response.setName(savedEmployee.getName());
+        response.setDepartment(savedEmployee.getDepartment());
+        response.setSalary(savedEmployee.getSalary());
+
+        return response;
     }
 
     @Override

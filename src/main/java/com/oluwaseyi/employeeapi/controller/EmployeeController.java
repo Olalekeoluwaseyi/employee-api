@@ -1,5 +1,7 @@
 package com.oluwaseyi.employeeapi.controller;
 
+import com.oluwaseyi.employeeapi.dto.request.CreateEmployeeRequest;
+import com.oluwaseyi.employeeapi.dto.response.EmployeeResponse;
 import com.oluwaseyi.employeeapi.model.Employee;
 import com.oluwaseyi.employeeapi.service.EmployeeService;
 
@@ -32,8 +34,8 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public Employee addEmployee(@Valid @RequestBody Employee employee){
-        return employeeService.addEmployee(employee) ;
+    public EmployeeResponse addEmployee(@Valid @RequestBody CreateEmployeeRequest request){
+        return employeeService.addEmployee(request) ;
     }
 
     @PutMapping("/{id}")

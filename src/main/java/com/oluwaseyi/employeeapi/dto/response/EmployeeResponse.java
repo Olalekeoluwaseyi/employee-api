@@ -1,20 +1,28 @@
-package com.oluwaseyi.employeeapi.dto.request;
+package com.oluwaseyi.employeeapi.dto.response;
 
-import com.oluwaseyi.employeeapi.validation.annotation.ValidDepartment;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+public class EmployeeResponse {
 
-public class CreateEmployeeRequest {
-
-    @NotBlank(message = "Name is required")
+    private Integer id;
     private String name;
-
-    @NotBlank(message = "Department is required")
-    @ValidDepartment
     private String department;
-
-    @Positive(message = "Salary must be greater than zero")
     private Double salary;
+
+    public EmployeeResponse() {}
+
+    public EmployeeResponse(Integer id, String name, String department, Double salary) {
+        this.id = id;
+        this.name = name;
+        this.department = department;
+        this.salary = salary;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

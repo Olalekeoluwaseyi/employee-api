@@ -1,5 +1,7 @@
 package com.oluwaseyi.employeeapi.service;
 
+import com.oluwaseyi.employeeapi.dto.request.CreateEmployeeRequest;
+import com.oluwaseyi.employeeapi.dto.response.EmployeeResponse;
 import com.oluwaseyi.employeeapi.model.Employee;
 
 import java.util.List;
@@ -13,7 +15,7 @@ public interface EmployeeService {
 
     Employee getEmployeeById(int id);
 
-    Employee addEmployee(Employee employee);
+    EmployeeResponse addEmployee(CreateEmployeeRequest request);
 
     Employee updateEmployee(Integer id, Employee employee);
 
