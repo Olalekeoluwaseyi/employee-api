@@ -3,6 +3,7 @@ package com.oluwaseyi.employeeapi.service;
 import com.oluwaseyi.employeeapi.dto.request.CreateEmployeeRequest;
 import com.oluwaseyi.employeeapi.dto.response.EmployeeResponse;
 import com.oluwaseyi.employeeapi.exception.EmployeeNotFoundException;
+import com.oluwaseyi.employeeapi.mapper.EmployeeMapper;
 import com.oluwaseyi.employeeapi.model.Employee;
 import com.oluwaseyi.employeeapi.repository.EmployeeRepository;
 import jakarta.validation.Valid;
@@ -17,9 +18,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    private final EmployeeMapper employeeMapper;
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
 
         this.employeeRepository = employeeRepository;
+        this.employeeMapper = employeeMapper;
     }
 
     @Override
@@ -43,21 +47,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public EmployeeResponse addEmployee(CreateEmployeeRequest request){
 
-        //Manual Object Mapping
-        Employee employee = new Employee();
-        employee.setName(request.getName());
-        employee.setDepartment(request.getDepartment());
-        employee.setSalary(request.getSalary());
+        Employee employee = employeeMapper.toEmployee(request);
 
         Employee savedEmployee = employeeRepository.save(employee);
-        EmployeeResponse response = new EmployeeResponse();
 
-        response.setId(savedEmployee.getId());
-        response.setName(savedEmployee.getName());
-        response.setDepartment(savedEmployee.getDepartment());
-        response.setSalary(savedEmployee.getSalary());
+        return employeeMapper.toEmployeeResponse(savedEmployee);
 
-        return response;
+
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.oluwaseyi.employeeapi.service.EmployeeService;
 
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +35,8 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public EmployeeResponse addEmployee(@Valid @RequestBody CreateEmployeeRequest request){
-        return employeeService.addEmployee(request) ;
+    public ResponseEntity<EmployeeResponse> addEmployee(@Valid @RequestBody CreateEmployeeRequest request){
+        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.addEmployee(request)) ;
     }
 
     @PutMapping("/{id}")
